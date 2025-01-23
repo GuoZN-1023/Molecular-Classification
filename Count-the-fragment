@@ -1,0 +1,38 @@
+from rdkit import Chem
+from rdkit.Chem import Descriptors
+from rdkit.Chem import AllChem
+
+def count_atom(smiles):
+    cou = 0
+    for i in smiles:
+        if i.isalpha():
+            cou += 1
+    return cou
+
+def count_C_atom(smiles):
+    return smiles.count("C") + smiles.count("c")
+
+def count_O_atom(smiles):
+    return smiles.count("O") + smiles.count("o")
+
+def count_H_atom(smiles):
+    mol = Chem.MolFromSmiles(smiles)
+    mol_added_H = AllChem.AddHs(mol)
+    smiles = Chem.MolToSmiles(mol_added_H)
+    return smiles.count("H") + smiles.count("h")
+
+def count_F_atom(smiles):
+    return smiles.count("F")
+
+def count_C_O_atom(smiles):
+    return count_C_atom(smiles) / count_O_atom(smiles)
+
+def count_branches(smiles):
+    return (smiles.count("(") + smiles.count(")") - smiles.count("(=O)") * 2) / 2
+
+def Rings(smiles):
+    mol = Chem.MolFromSmiles(smiles)
+    ring = mol.GetRingInfo()
+    return ring.NumRings()
+
+
