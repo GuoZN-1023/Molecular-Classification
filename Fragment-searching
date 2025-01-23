@@ -1,0 +1,47 @@
+import pandas as pd
+import numpy as np
+from rdkit import Chem
+from rdkit.Chem import Lipinski
+
+#可能会用到的分子片段
+functional_group_dict={"ether":"COC","ester":"C(=O)",
+                       "alcohol":"CO","acid":"C(=O)O",
+                       "alkene":"C=C","alkyne":"C#C",
+                       "aliphatic_ring":"C1","aromatic_ring":"c",
+                       "halogen_1":"F","halogen_2":"Cl","halogen_3":"Br",
+                       "amine":"N","cyanogen":"CN","amide":"C(=O)N",
+                       "double bond":"=","triple bond":"#"}
+
+def fragment_searching(self,mol_list,fragment_list,logic_list):
+
+    """本函数接受三个参数：mol_list,fragment_list,logic_list"""
+    """mol_list：包含SMILES格式的分子的列表
+       fragment_list：包含想要包括、以及不包括分子片段的列表；若某片段可有可无，请不要写入列表！
+       logic_list：指示fragment_list中哪些fragment是想要的，哪些是不想要的；想要值为1，不想要值为0。"""
+    """输入示例：
+         mol_list=["CCOC(C)=O","C=CC12CC1CO2","C#CCOC#CCOC"]
+         fragment_list=["COC","C(=O)","CO","C(=O)O","=","#","ring"]
+         logic_list=[1,0,0,1,0,1,1]
+         这样该函数会筛选出mol_list中包含"COC"，"C(=O)O"，"#","ring"结构，且不包含"C(=O)","CO"，"="结构的分子"""
+         
+    expected_molecular=[]
+    fragment = Chem.MolFromSmiles(fragment_list)
+    
+    for mol in mol_list:
+        mol=Chem.MolFromSmiles(Mol)
+        logic=[False]*len(self.query)
+
+        for i in range(len(fragment_list)):
+            if fragment_list[i] == "ring":
+                logic_list[i]=Chem.Lipinski.RingCount(mol)>0
+            else:
+                logic_i=Chem.MolFromSmarts(fragment_list[i])
+                logic[i]=bool(mol.HasSubstructMatch(logic_i))
+
+            if logic_list == logic:
+                expected_molecular.append(mol）
+
+    return expected_molecular
+
+        
+        
