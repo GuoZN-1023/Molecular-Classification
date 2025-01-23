@@ -1,0 +1,58 @@
+from rdkit import Chem
+from rdkit.Chem import Descriptors
+from rdkit.Chem import AllChem
+
+def MolWt(smiles):
+    mol = Chem.MolFromSmiles(smiles)
+    return Descriptors.MolWt(mol)
+
+def sum_pauling_electronegativity(smiles):
+    pelec_H = 2.20
+    pelec_C = 2.55
+    pelec_O = 3.44
+    return pelec_H * count_H_atom(smiles) + pelec_C * count_C_atom(smiles) + pelec_O * count_O_atom(smiles)
+
+def avg_pauling_electronegativity(smiles):
+    pelec_H = 2.20
+    pelec_C = 2.55
+    pelec_O = 3.44
+    return (pelec_H * count_H_atom(smiles) + pelec_C * count_C_atom(smiles) + pelec_O * count_O_atom(smiles)) / count_atom(smiles)
+
+def sum_ionization_energies(smiles):
+    ioni_H = 13.598433
+    ioni_C = 11.26030
+    ioni_O = 13.61805
+    return ioni_H * count_H_atom(smiles) + ioni_C * count_C_atom(smiles) + ioni_O * count_O_atom(smiles)
+
+def avg_ionization_energies(smiles):
+    ioni_H = 13.598433
+    ioni_C = 11.26030
+    ioni_O = 13.61805
+    return (ioni_H * count_H_atom(smiles) + ioni_C * count_C_atom(smiles) + ioni_O * count_O_atom(smiles)) / count_atom(smiles)
+
+def sum_ionization_energies2(smiles):
+    ioni_C = 24.3833
+    ioni_O = 35.1211
+    return ioni_C * count_C_atom(smiles) + ioni_O * count_O_atom(smiles)
+
+def sum_ionization_energies3(smiles):
+    ioni_C = 47.8878
+    ioni_O = 54.9355
+    return ioni_C * count_C_atom(smiles) + ioni_O * count_O_atom(smiles)
+
+def sum_ionization_energies4(smiles):
+    ioni_C = 64.4939
+    ioni_O = 77.41353
+    return ioni_C * count_C_atom(smiles) + ioni_O * count_O_atom(smiles)
+
+def sum_electron_affinity(smiles):
+    ea_H = 0.75420375
+    ea_C = 1.262118
+    ea_O = 1.4611120
+    return ea_H * count_H_atom(smiles) + ea_C * count_C_atom(smiles) + ea_O * count_O_atom(smiles)
+
+def avg_electron_affinity(smiles):
+    ea_H = 0.75420375
+    ea_C = 1.262118
+    ea_O = 1.4611120
+    return (ea_H * count_H_atom(smiles) + ea_C * count_C_atom(smiles) + ea_O * count_O_atom(smiles)) / count_atom(smiles)
